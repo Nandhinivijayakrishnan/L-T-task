@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    input {
+      margin-bottom: 10px;
+    }
+    .error-message {
+      color: red;
+      margin-bottom: 10px;
+    }
+    .success-message {
+      color: green;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <form id="myForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name">
+    <div id="name-error" class="error-message"></div>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email">
+    <div id="email-error" class="error-message"></div>
+
+    <label for="phone">Phone:</label>
+    <input type="tel" id="phone" name="phone">
+    <div id="phone-error" class="error-message"></div>
+
+    <button type="button" onclick="validateForm()">Submit</button>
+  </form>
+
+  <div id="success-message" class="success-message"></div>
+
+  <script>
+    function validateForm() {
+      var name = document.getElementById('name').value;
+      var email = document.getElementById('email').value;
+      var phone = document.getElementById('phone').value;
+      var nameError = document.getElementById('name-error');
+      var emailError = document.getElementById('email-error');
+      var phoneError = document.getElementById('phone-error');
+      var successMessage = document.getElementById('success-message');
+
+      nameError.textContent = '';
+      emailError.textContent = '';
+      phoneError.textContent = '';
+      successMessage.textContent = '';
+
+      if (name === '') {
+        nameError.textContent = 'Name is required';
+      }
+
+      if (email === '') {
+        emailError.textContent = 'Email is required';
+      } else {
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+          emailError.textContent = 'Invalid email format';
+        }
+      }
+
+      if (phone === '') {
+        phoneError.textContent = 'Phone is required';
+      } else {
+        var phoneRegex = /^\d{10}$/;
+        if (!phoneRegex.test(phone)) {
+          phoneError.textContent = 'Invalid phone number format (10 digits)';
+        }
+      }
+
+      if (nameError.textContent === '' && emailError.textContent === '' && phoneError.textContent === '') {
+        successMessage.textContent = 'Form submitted successfully!';
+        console.log('Name:', name);
+        console.log('Email:', email);
+        console.log('Phone:', phone);
+        resetForm();
+      }
+    }
+
+    function resetForm() {
+      document.getElementById('myForm').reset();
+    }
+
+    //Backend code api connection
+//     function sendDataToServer(data) {
+//   fetch('/submitFormData', {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify(data),
+//   })
+//   .then(response => {
+//     console.log('Response Status:', response.status);
+//     console.log('Response Headers:', response.headers);
+//     return response.json();
+//   })
+//   .then(responseData => {
+//     // Display success message on successful response from the server
+//     if (responseData.success) {
+//       document.getElementById('success-message').textContent = 'Form submitted successfully!';
+//       console.log('Form submitted successfully!');
+//       resetForm();
+//     } else {
+//       // Handle any errors from the server
+//       console.error(responseData.error);
+//     }
+//   })
+//   .catch(error => {
+//     console.error('Error:', error);
+//   });
+// }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    input {
+      margin-bottom: 10px;
+    }
+    .error-message {
+      color: red;
+      margin-bottom: 10px;
+    }
+    .success-message {
+      color: green;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <form id="loginForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name">
+    <div id="name-error" class="error-message"></div>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email">
+    <div id="email-error" class="error-message"></div>
+
+    <button type="button" onclick="submitLoginForm()">Login</button>
+  </form>
+
+  <div id="success-message" class="success-message"></div>
+
+  <script>
+    function submitLoginForm() {
+      var name = document.getElementById('name').value;
+      var email = document.getElementById('email').value;
+      var nameError = document.getElementById('name-error');
+      var emailError = document.getElementById('email-error');
+      var successMessage = document.getElementById('success-message');
+
+      nameError.textContent = '';
+      emailError.textContent = '';
+      successMessage.textContent = '';
+
+      // Check if both name and email are not empty
+      if (name.trim() === '') {
+        nameError.textContent = 'Name is required';
+        return;
+      }
+
+      if (email.trim() === '') {
+        emailError.textContent = 'Email is required';
+        return;
+      }
+
+      // Proceed with login
+      successMessage.textContent = 'Login successful!';
+      console.log('Name:', name);
+      console.log('Email:', email);
+      resetForm();
+    }
+
+    function resetForm() {
+      document.getElementById('loginForm').reset();
+    }
+  </script>
+
+</body>
+</html>
